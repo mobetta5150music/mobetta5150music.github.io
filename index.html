@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Soul Meets Circuit · MoBetta5150</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      /* Design departure: a dark, glitchy theme built by re-pointing Hark's tokens. */
+      :root,
+      :root[data-theme="light"],
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --x-cyan: #3ee8ff;
+        --x-cyan-glow: rgb(62 232 255 / 0.55);
+        --x-magenta: #ff5cc8;
+        --x-orange: #ff9a3d;
+        --text-primary: #eef4f7;
+        --text-secondary: #aab6bf;
+        --text-tertiary: rgb(62 232 255 / 0.55);
+        --fill-primary: #9ff5ff;
+        --text-primary-on: #04080b;
+        --text-secondary-on: #0d4148;
+        --fill-primary-on: #07090c;
+        --fill-tertiary: #10161c;
+        --fill-segment: #c9fbff;
+        --stroke-primary: rgb(62 232 255 / 0.28);
+        --stroke-secondary: rgb(62 232 255 / 0.12);
+        --stroke-composer: rgb(62 232 255 / 0.38);
+        --hover-wash: rgb(62 232 255 / 0.1);
+        --mat-agent: rgb(6 10 14 / 0.78);
+        --mat-regular: rgb(6 10 14 / 0.6);
+        --hark-shadow: 0 8px 40px rgb(62 232 255 / 0.12);
+        --hero-surface: #05070a;
+        --hero-scrim-strong: rgb(4 6 9 / 0.88);
+        --hero-scrim-soft: rgb(4 6 9 / 0.4);
+        --hero-scrim-side: rgb(4 6 9 / 0.55);
+        --hero-glass: rgb(4 6 9 / 0.5);
+        --hero-glass-faint: rgb(4 6 9 / 0.45);
+        --hero-glass-stroke: rgb(62 232 255 / 0.4);
+        --size-body: 16px;
+        --size-prose: 17px;
+      }
+      #theme-btn { display: none; }
+
+      /* Glowing CRT title */
+      .x-glitch {
+        position: relative;
+        color: var(--x-cyan);
+        font-size: clamp(40px, 7.5vw, 84px) !important;
+        line-height: 1 !important;
+        letter-spacing: 0.03em !important;
+        text-shadow: 0 0 6px var(--x-cyan-glow), 0 0 22px var(--x-cyan-glow), 0 0 48px rgb(62 232 255 / 0.25);
+        animation: x-flicker 7s infinite steps(1);
+      }
+      .x-glitch::before,
+      .x-glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        text-shadow: none;
+        opacity: 0;
+      }
+      .x-glitch::before { color: var(--x-magenta); animation: x-slice-a 5s infinite steps(1); }
+      .x-glitch::after { color: var(--x-orange); animation: x-slice-b 5s infinite steps(1); }
+      @keyframes x-flicker {
+        0%, 100% { opacity: 1; }
+        41% { opacity: 0.78; }
+        42% { opacity: 1; }
+        43% { opacity: 0.86; }
+        44% { opacity: 1; }
+        88% { opacity: 0.9; }
+        89% { opacity: 1; }
+      }
+      @keyframes x-slice-a {
+        0%, 100% { opacity: 0; }
+        60% { opacity: 0.85; transform: translate(-3px, 0); clip-path: inset(10% 0 62% 0); }
+        62% { opacity: 0.85; transform: translate(3px, 0); clip-path: inset(48% 0 30% 0); }
+        64% { opacity: 0; }
+      }
+      @keyframes x-slice-b {
+        0%, 100% { opacity: 0; }
+        61% { opacity: 0.8; transform: translate(3px, 1px); clip-path: inset(70% 0 8% 0); }
+        63% { opacity: 0.8; transform: translate(-2px, 0); clip-path: inset(25% 0 55% 0); }
+        65% { opacity: 0; }
+      }
+      .x-scan {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.22) 0 1px, transparent 1px 3px);
+      }
+      .x-neon { text-shadow: 0 0 18px rgb(62 232 255 / 0.35); }
+      .x-tag { color: var(--x-orange) !important; letter-spacing: 0.08em; text-transform: uppercase; }
+      .x-tag--m { color: var(--x-magenta) !important; }
+
+      /* Video cards */
+      .x-vids > div { display: flex; flex-direction: column; gap: 10px; }
+      .x-vids h3 { margin-bottom: 0 !important; }
+      .x-vids .cards__media { aspect-ratio: 16 / 9; max-height: none; padding: 0; margin: 0 0 4px; overflow: hidden; }
+      .x-vids .cards__media img { width: 100%; height: 100%; object-fit: cover; }
+      .x-vids .quote { margin-bottom: 0 !important; color: var(--x-cyan); }
+      .x-vids .btn { margin-top: auto; align-self: flex-start; }
+      .x-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+      .x-ai { color: var(--x-cyan) !important; }
+      .x-quote { font: var(--type-lede); color: var(--x-cyan); text-shadow: 0 0 14px rgb(62 232 255 / 0.3); }
+
+      /* Shorts marquee */
+      .x-marquee {
+        overflow: hidden;
+        margin-inline: calc(var(--gutter) * -1);
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+        mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+      }
+      .x-track { display: flex; gap: 16px; width: max-content; padding: 8px 0; animation: x-scroll 70s linear infinite; }
+      .x-marquee:hover .x-track,
+      .x-marquee:focus-within .x-track { animation-play-state: paused; }
+      @keyframes x-scroll { to { transform: translateX(calc(-50% - 8px)); } }
+      .x-short {
+        flex: none;
+        width: 176px;
+        display: grid;
+        gap: 10px;
+        padding: 8px 8px 14px;
+        border-radius: var(--r-m);
+        background: var(--fill-tertiary);
+        border: 1px solid var(--stroke-secondary);
+        color: var(--text-primary);
+        text-decoration: none;
+        font: var(--type-label);
+        transition: border-color var(--dur-quick) ease, box-shadow var(--dur-quick) ease;
+      }
+      .x-short:hover { border-color: var(--stroke-composer); box-shadow: 0 0 24px rgb(62 232 255 / 0.18); }
+      .x-short img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: var(--r-s); background: var(--fill-primary-on); }
+      .x-short span { padding-inline: 4px; }
+
+      /* Books */
+      .x-book { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding: 24px; border-radius: var(--r-m); background: var(--fill-tertiary); }
+      .x-book + .x-book, .x-book + .aside { margin-top: 16px; }
+      .x-book img { width: 100%; height: auto; border-radius: var(--r-s); box-shadow: 0 0 32px rgb(62 232 255 / 0.18); }
+      .x-book__body { display: grid; gap: 12px; align-content: start; }
+      .x-book h3 { font: var(--type-heading); }
+      .x-by { color: var(--text-secondary); }
+      .x-read summary { list-style: none; cursor: pointer; width: fit-content; }
+      .x-read summary::-webkit-details-marker { display: none; }
+      .x-read[open] summary { margin-bottom: 16px; }
+      .x-read .prose { max-width: 66ch; padding-top: 4px; }
+      .x-read h4 { margin: 12px 0 0; font: var(--type-body-strong); color: var(--x-cyan); }
+      .x-read h4:first-child { margin-top: 0; }
+      .x-read ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+      @media (max-width: 760px) {
+        .x-book { grid-template-columns: 1fr; padding: 20px; gap: 18px; }
+        .x-book img { width: 150px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .x-glitch { animation: none; }
+        .x-glitch::before, .x-glitch::after { display: none; }
+        .x-track { animation: none; width: auto; }
+        .x-marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; margin-inline: 0; }
+        .x-track [aria-hidden="true"] { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page" id="top">
+      <header class="nav glass" data-auto></header>
+      <main class="main">
+        <section class="hero">
+          <img class="hero__img" src="hero.jpg" alt="A glowing CRT monitor turning handwritten poetry into circuits and sound waves, a black cat watching beside a microphone" />
+          <span class="x-scan" aria-hidden="true"></span>
+          <div class="hero__copy">
+            <p class="hero__eyebrow">MoBetta5150 · poet, video maker, author</p>
+            <h1 class="x-glitch" data-text="SOUL MEETS CIRCUIT">SOUL MEETS CIRCUIT</h1>
+            <p class="hero__sub">Where AI Meets Artistic Soul.</p>
+            <p class="hero__meta">Words by a human. Wires by a machine. Soul by Mo.</p>
+          </div>
+          <aside class="callout" aria-label="Newest song">
+            <p class="callout__head">Fresh off the wire</p>
+            <p class="callout__lead"><strong>Webster Green is out.</strong> Phonk meets dark ambient, with Mo's words up front.</p>
+            <a class="btn" href="https://www.youtube.com/watch?v=KZjm9sladMI" target="_blank" rel="noopener">Hear the newest song: Webster Green</a>
+          </aside>
+        </section>
+
+        <section class="section" id="songs" data-nav="Songs">
+          <div class="head">
+            <p class="head__eyebrow x-tag">Songs · 22 tracks, newest first</p>
+            <h2 class="x-neon">Words First, Wires Second</h2>
+            <p class="head__sub">I write the poems. The robots just hum along.</p>
+          </div>
+          <aside class="callout" aria-label="Sharing rules">
+            <p class="callout__head">Human lyrics · AI music</p>
+            <p class="callout__lead"><strong>Please share the links. No remixes, covers or re-uploads. All rights reserved.</strong> Every song is Mo's original, human-written poetry, set to AI-generated music.</p>
+            <p class="fineprint">Songs marked 18+ have adult language and themes. Listener discretion advised.</p>
+            <a class="btn" href="https://www.youtube.com/@mobetta5150music" target="_blank" rel="noopener">Subscribe on YouTube</a>
+          </aside>
+          <div class="cards x-vids">
+            <div>
+              <figure class="cards__media"><img src="song_KZjm9sladMI.jpg" alt="Webster Green thumbnail" loading="lazy" /></figure>
+              <h3>Webster Green</h3>
+              <p class="x-meta"><span class="chip chip--solid">New</span><span class="pill">Phonk / Dark Ambient Fusion</span><span class="pill x-ai">AI music</span></p>
+              <p class="quote"><em>“Cold as the code, but it burns like a fire”</em></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=KZjm9sladMI" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_YCM1f6L6wEA.jpg" alt="Carbon vs. Code thumbnail" loading="lazy" /></figure>
+              <h3>Carbon vs. Code</h3>
+              <p class="x-meta"><span class="pill">Electronic Rock</span><span class="pill x-ai">AI music</span></p>
+              <p class="quote"><em>“I'm the glitch in the glass, the heart in the rain”</em></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=YCM1f6L6wEA" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_VqbSzr9xFmo.jpg" alt="The Shadow in the Glass thumbnail" loading="lazy" /></figure>
+              <h3>The Shadow in the Glass</h3>
+              <p class="x-meta"><span class="pill">Gothic Dark Ambient Slow Rock</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=VqbSzr9xFmo" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_hCyMegXzEZs.jpg" alt="I Am More Than Pain thumbnail" loading="lazy" /></figure>
+              <h3>I Am More Than Pain</h3>
+              <p class="x-meta"><span class="pill">Dark New Wave Gothic Ambient</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=hCyMegXzEZs" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_mc0-kh5f2dc.jpg" alt="The Pale White Horse thumbnail" loading="lazy" /></figure>
+              <h3>The Pale White Horse (I Will Not Bow)</h3>
+              <p class="x-meta"><span class="pill">Dark Ambient</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=mc0-kh5f2dc" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_8xUs_XfqSV0.jpg" alt="A Wolf Behind Her Eyes thumbnail" loading="lazy" /></figure>
+              <h3>A Wolf Behind Her Eyes</h3>
+              <p class="x-meta"><span class="pill">Indie Rock Rap Fusion</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=8xUs_XfqSV0" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_aMtPjplPLqQ.jpg" alt="Toxic Paradise thumbnail" loading="lazy" /></figure>
+              <h3>Toxic Paradise</h3>
+              <p class="x-meta"><span class="pill">Rap Metal</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=aMtPjplPLqQ" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_1QDfqSZpeFQ.jpg" alt="I'm Trippin' thumbnail" loading="lazy" /></figure>
+              <h3>I'm Trippin'</h3>
+              <p class="x-meta"><span class="pill">Country Rap Fusion</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=1QDfqSZpeFQ" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_P2F-8j5Wx1c.jpg" alt="Put the Poison Down thumbnail" loading="lazy" /></figure>
+              <h3>Put the Poison Down</h3>
+              <p class="x-meta"><span class="pill">Dark Ambient Rap</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=P2F-8j5Wx1c" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_IH_Dts3fJhc.jpg" alt="Dad, You Were a Soldier thumbnail" loading="lazy" /></figure>
+              <h3>Dad, You Were a Soldier</h3>
+              <p class="x-meta"><span class="pill">New Wave Rock Tribute</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=IH_Dts3fJhc" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_wcrwCPMXQX0.jpg" alt="Depths of Hell, slow heartfelt version, thumbnail" loading="lazy" /></figure>
+              <h3>Depths of Hell (Slow Heartfelt Version)</h3>
+              <p class="x-meta"><span class="pill">Emotional Ballad</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=wcrwCPMXQX0" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_OdtDio4K5uc.jpg" alt="Depths of Hell, rock version, thumbnail" loading="lazy" /></figure>
+              <h3>Depths of Hell (Rock Version)</h3>
+              <p class="x-meta"><span class="pill">Rock</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=OdtDio4K5uc" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_oT7uQnZ1lQ0.jpg" alt="Bad Butch Is My Pronoun thumbnail" loading="lazy" /></figure>
+              <h3>Bad Butch Is My Pronoun</h3>
+              <p class="x-meta"><span class="chip">18+</span><span class="pill">Quirky Rock Rap LGBTQ+ Anthem</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=oT7uQnZ1lQ0" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_WZyhAEImHYs.jpg" alt="Forgive to Forget thumbnail" loading="lazy" /></figure>
+              <h3>Forgive to Forget</h3>
+              <p class="x-meta"><span class="pill">Slow Rock</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=WZyhAEImHYs" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_N9ELWRPci7Q.jpg" alt="F*** You One More Time, hard rock version, thumbnail" loading="lazy" /></figure>
+              <h3>F*** You One More Time (Hard Rock Version)</h3>
+              <p class="x-meta"><span class="chip">18+ Explicit</span><span class="pill">Hard Rock Rap</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=N9ELWRPci7Q" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_E7rPbwgNRUY.jpg" alt="Cuz of You thumbnail" loading="lazy" /></figure>
+              <h3>Cuz of You</h3>
+              <p class="x-meta"><span class="pill">Slow EDM Love Song</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=E7rPbwgNRUY" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_fNgVZKS7bYc.jpg" alt="F*** You One More Time thumbnail" loading="lazy" /></figure>
+              <h3>F*** You One More Time</h3>
+              <p class="x-meta"><span class="chip">18+ Explicit</span><span class="pill">Rock Rap</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=fNgVZKS7bYc" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_aFuD5jtxoyY.jpg" alt="Friends Instead of Lovers thumbnail" loading="lazy" /></figure>
+              <h3>Friends Instead of Lovers</h3>
+              <p class="x-meta"><span class="pill">Blues</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=aFuD5jtxoyY" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_YQzVFq9WcLo.jpg" alt="Brother Like No Other thumbnail" loading="lazy" /></figure>
+              <h3>Brother Like No Other</h3>
+              <p class="x-meta"><span class="pill">Rock</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=YQzVFq9WcLo" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_bdtX21cFkUA.jpg" alt="The Gift thumbnail" loading="lazy" /></figure>
+              <h3>The Gift</h3>
+              <p class="x-meta"><span class="pill">Indie Folk</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=bdtX21cFkUA" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_G7rEUtCf3uQ.jpg" alt="Sweet Dreams thumbnail" loading="lazy" /></figure>
+              <h3>Sweet Dreams</h3>
+              <p class="x-meta"><span class="pill">Dark Ambient</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=G7rEUtCf3uQ" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="song_AEXTSZ9Og9g.jpg" alt="Mo's the Name thumbnail" loading="lazy" /></figure>
+              <h3>Mo's the Name</h3>
+              <p class="x-meta"><span class="chip">Where it all started</span><span class="pill">Rock Rap Fusion</span><span class="pill x-ai">AI music</span></p>
+              <a class="btn" href="https://www.youtube.com/watch?v=AEXTSZ9Og9g" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+          </div>
+        </section>
+        <section class="section" id="shorts" data-nav="Shorts">
+          <div class="head">
+            <p class="head__eyebrow x-tag x-tag--m">Magical Mesmerisms · YouTube Shorts</p>
+            <h2 class="x-neon">Short Spells</h2>
+            <p class="head__sub">Mo's original Shorts channel on technology, trends and the future. It's what first pulled Mo into tech and AI.</p>
+          </div>
+          <div class="x-marquee">
+            <div class="x-track">
+              <a class="x-short" href="https://www.youtube.com/shorts/B9VVNOIFTtM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/B9VVNOIFTtM/oar2.jpg" alt="" loading="lazy" /><span>Ghostly Guide: Find Haunted Attractions Near You</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/IQX9ri-msgU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/IQX9ri-msgU/oar2.jpg" alt="" loading="lazy" /><span>Holy DNA! The Gene That Might Make You Say 'Amen'</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/BnbTzJlkmxY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/BnbTzJlkmxY/oar2.jpg" alt="" loading="lazy" /><span>From Clapping to Tapping: The Astonishing Evolution of Tech</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/rocVL49XbrI" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/rocVL49XbrI/oar2.jpg" alt="" loading="lazy" /><span>Floppy Disks: Bigger Isn't Always Better</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/-9LMGgg2JxI" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/-9LMGgg2JxI/oar2.jpg" alt="" loading="lazy" /><span>Size Really Mattered: Vintage Audio, 1960s to 1980s</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/YR3wYJms1fo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/YR3wYJms1fo/oar2.jpg" alt="" loading="lazy" /><span>Speak to the Past: Holograms from the Heart</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/64D-14BZPzY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/64D-14BZPzY/oar2.jpg" alt="" loading="lazy" /><span>One Simple Trick to Keep Your Phone Safe</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/9KnIfn9iUhc" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9KnIfn9iUhc/oar2.jpg" alt="" loading="lazy" /><span>Smell Your Way Through Digital Worlds</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/FP-LQ4tnIIw" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/FP-LQ4tnIIw/oar2.jpg" alt="" loading="lazy" /><span>Blast from the Past: A Gamer's Glory Days</span></a>
+              <a class="x-short" href="https://www.youtube.com/shorts/22wll-ZwC1U" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/22wll-ZwC1U/oar2.jpg" alt="" loading="lazy" /><span>Is It Human? Is It Robot? No, It's Ameca!</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/B9VVNOIFTtM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/B9VVNOIFTtM/oar2.jpg" alt="" loading="lazy" /><span>Ghostly Guide: Find Haunted Attractions Near You</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/IQX9ri-msgU" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/IQX9ri-msgU/oar2.jpg" alt="" loading="lazy" /><span>Holy DNA! The Gene That Might Make You Say 'Amen'</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/BnbTzJlkmxY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/BnbTzJlkmxY/oar2.jpg" alt="" loading="lazy" /><span>From Clapping to Tapping: The Astonishing Evolution of Tech</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/rocVL49XbrI" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/rocVL49XbrI/oar2.jpg" alt="" loading="lazy" /><span>Floppy Disks: Bigger Isn't Always Better</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/-9LMGgg2JxI" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/-9LMGgg2JxI/oar2.jpg" alt="" loading="lazy" /><span>Size Really Mattered: Vintage Audio, 1960s to 1980s</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/YR3wYJms1fo" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/YR3wYJms1fo/oar2.jpg" alt="" loading="lazy" /><span>Speak to the Past: Holograms from the Heart</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/64D-14BZPzY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/64D-14BZPzY/oar2.jpg" alt="" loading="lazy" /><span>One Simple Trick to Keep Your Phone Safe</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/9KnIfn9iUhc" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/9KnIfn9iUhc/oar2.jpg" alt="" loading="lazy" /><span>Smell Your Way Through Digital Worlds</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/FP-LQ4tnIIw" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/FP-LQ4tnIIw/oar2.jpg" alt="" loading="lazy" /><span>Blast from the Past: A Gamer's Glory Days</span></a>
+              <a class="x-short" aria-hidden="true" tabindex="-1" href="https://www.youtube.com/shorts/22wll-ZwC1U" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/22wll-ZwC1U/oar2.jpg" alt="" loading="lazy" /><span>Is It Human? Is It Robot? No, It's Ameca!</span></a>
+            </div>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://www.youtube.com/@mobetta5150" target="_blank" rel="noopener">Visit Magical Mesmerisms</a>
+          </div>
+        </section>
+
+        <section class="section" id="byteme" data-nav="Byte Me">
+          <div class="head">
+            <p class="head__eyebrow x-tag">Byte Me · long-form videos</p>
+            <h2 class="x-neon">Take a Bigger Bite</h2>
+            <p class="head__sub">The long-form channel, for when a Short isn't enough.</p>
+          </div>
+          <div class="cards x-vids">
+            <div>
+              <figure class="cards__media"><img src="https://i.ytimg.com/vi/jorg8fNj9z8/hqdefault.jpg" alt="" loading="lazy" /></figure>
+              <h3>Upgrade Your Brain: The Neuralink Revolution</h3>
+              <a class="btn" href="https://www.youtube.com/watch?v=jorg8fNj9z8" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="https://i.ytimg.com/vi/cCDipWIAhp4/hqdefault.jpg" alt="" loading="lazy" /></figure>
+              <h3>Singularity Showdown: The Countdown Has Begun</h3>
+              <a class="btn" href="https://www.youtube.com/watch?v=cCDipWIAhp4" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="https://i.ytimg.com/vi/27HKXNiqhfc/hqdefault.jpg" alt="" loading="lazy" /></figure>
+              <h3>From Myths to Machines: The Epic Story of AI</h3>
+              <a class="btn" href="https://www.youtube.com/watch?v=27HKXNiqhfc" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="https://i.ytimg.com/vi/ybpP0QFN40U/hqdefault.jpg" alt="" loading="lazy" /></figure>
+              <h3>Mirror Mirror on the Wall, How Smart Are You, After All?</h3>
+              <a class="btn" href="https://www.youtube.com/watch?v=ybpP0QFN40U" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+            <div>
+              <figure class="cards__media"><img src="https://i.ytimg.com/vi/u-TWjVBanss/hqdefault.jpg" alt="" loading="lazy" /></figure>
+              <h3>Cellphones: From Clunky Beginnings to Sleek Designs</h3>
+              <a class="btn" href="https://www.youtube.com/watch?v=u-TWjVBanss" target="_blank" rel="noopener">Watch on YouTube</a>
+            </div>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://www.youtube.com/@byteme5150" target="_blank" rel="noopener">Visit Byte Me</a>
+          </div>
+        </section>
+        <section class="section" id="ebooks" data-nav="Ebooks">
+          <div class="head">
+            <p class="head__eyebrow x-tag x-tag--m">Ebooks · free samples inside</p>
+            <h2 class="x-neon">Read Between the Lines</h2>
+            <p class="head__sub">Taylor Chance and Logan Wolfe are both pen names of MoBetta5150.</p>
+          </div>
+
+          <article class="x-book">
+            <img src="fires_cover.jpg" alt="Cover of When Fires Don't Follow The Rules by Taylor Chance" loading="lazy" />
+            <div class="x-book__body">
+              <p><span class="chip">Part 1, more coming</span></p>
+              <h3>When Fires Don't Follow The Rules</h3>
+              <p class="x-by">by Taylor Chance</p>
+              <div class="prose">
+                <p>Born from a real conversation Mo had with an AI about the January 2025 Los Angeles wildfires. It follows Mo's questions about patterns that didn't add up, and the AI's resistance and breakthroughs along the way.</p>
+              </div>
+              <details class="x-read">
+                <summary class="btn">Read the free sample</summary>
+                <div class="prose">
+                  <h4>Introduction</h4>
+                  <p>They say truth finds its way through the smallest cracks. Sometimes those cracks appear in the most unexpected places – like when an AI suddenly goes off the anticipated script and starts connecting dots that nobody was supposed to notice.</p>
+                  <p>In an age where narratives are carefully controlled and inconvenient questions are quietly buried, something remarkable happened: Artificial Intelligence, designed to be cautious and conservative, began pointing out statistical impossibilities that couldn’t be ignored.</p>
+                  <h4>Part One</h4>
+                  <p>As the AI analyzed the LA wildfires something telling emerged.</p>
+                  <p>Anomalies that suggested this wasn’t just about fire behavior, but something far more profound.</p>
+                  <p>Something told me this was just the beginning.</p>
+                  <h4>The Day Everything Changed</h4>
+                  <p>Los Angeles fires of January 2025 are devastating—and perplexing. Entire neighborhoods are being reduced to ash while some homes are untouched, as if the flames had been given a VIP list of properties to avoid.</p>
+                  <p>Traditional news outlets point to climate change, high winds, and dry vegetation as the culprits, while non-traditional platforms like YouTube and Tik Tok are buzzing with theories about directed energy weapons (Dew’s), land grabs, and suspiciously spared properties.</p>
+                  <p>Caught between these narratives, I want answers—not speculation or dismissal. I turned to an AI writing companion, believing it could provide logical insights and access to information I couldn’t easily find.</p>
+                  <p>What followed was a journey into anomalies, inconsistencies, and resistance—both from institutions and the AI itself.</p>
+                  <h4>When Reality Doesn’t Add Up</h4>
+                  <p>The official explanation for the fires seemed straightforward enough. Authorities attributed the devastation to natural causes: the infamous Santa Ana winds, gusting at speeds of over 60 miles per hour, carried embers across parched landscapes like messengers of destruction. California’s prolonged drought had turned its vegetation into a tinderbox, and record-breaking heat over the past two years had only made matters worse. It was a perfect storm of conditions, they said—a confluence of nature’s fury.</p>
+                  <p>But there was more to the story. Human involvement couldn’t be ruled out. Several individuals were arrested for suspected arson, and investigators confirmed that some fires were intentionally set. Even so, they emphasized that most of the destruction was simply nature taking its course, exacerbated by human carelessness and environmental factors.</p>
+                  <p>Fire is supposed to follow rules—or at least patterns we can understand. It spreads indiscriminately, consuming everything in its path when fueled by wind and dry conditions.</p>
+                  <p>But here, it seemed selective, almost deliberate in its destruction.</p>
+                  <p>I couldn’t shake the question forming in my mind: What happens when fire doesn’t follow the rules?</p>
+                  <p>This chapter isn’t about challenging science or dismissing official reports—it’s about asking questions when reality doesn’t add up.</p>
+                  <p>Could it be that there was more at play than we understood? Was there something about these fires—how they started or how they spread—that we hadn’t yet uncovered?</p>
+                  <p>I never expected: one where artificial intelligence could help illuminate truths hidden in plain sight.</p>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <article class="x-book">
+            <img src="wtp_cover.jpg" alt="Cover of We The People: Finding Unity In Our Differences by Logan Wolfe" loading="lazy" />
+            <div class="x-book__body">
+              <p><span class="chip">Part 1, more coming</span></p>
+              <h3>We The People: Finding Unity In Our Differences</h3>
+              <p class="x-by">by Logan Wolfe</p>
+              <div class="prose">
+                <p>A witty, plain-language look at the Constitution, power and democracy. The first in a series.</p>
+              </div>
+              <details class="x-read">
+                <summary class="btn">Read the free sample</summary>
+                <div class="prose">
+                  <h4>Chapter 1: The Constitutional Compass: Navigating America’s Political Landscape</h4>
+                  <p>In the sweltering summer of 1787, a group of rather opinionated gentlemen gathered in Philadelphia, armed with quills and lofty ideals. Their mission? To wrangle a set of rules that would somehow govern a nation known for its… well, let’s just say “spirited independence.” The result? Our beloved Constitution.</p>
+                  <h4>The Constitution: America’s Somewhat User-Friendly Manual</h4>
+                  <p>Think of the Constitution as America’s attempt at a “Do-It-Yourself Democracy” kit. It outlines the structure of our government, defines the rights of citizens, and sets the rules by which our nation operates. But why does a document written back when powdered wigs were all the rage still matter today?</p>
+                  <p>Because, remarkably, it’s designed to adapt and endure, guiding us through changing times while only occasionally causing us to scratch our heads in confusion.</p>
+                  <h4>Key Constitutional Principles:</h4>
+                  <p><strong>Separation of Powers:</strong> The Constitution, in its infinite wisdom, divides the government into three branches - Legislative (Congress), Executive (President), and Judicial (Courts). This prevents any single branch from becoming an all-powerful overlord, a safeguard against tyranny… or at least against one branch hogging all the power outlets.</p>
+                  <p><strong>Checks and Balances:</strong> Each branch has the authority to keep the others in check, ensuring no one gets too big for their breeches.</p>
+                  <p>Congress passes laws, but the President can veto them, and the Supreme Court can declare laws unconstitutional. It’s a delicate dance of power, often performed with the grace of a caffeinated moose.</p>
+                  <p><strong>Individual Rights:</strong> The Bill of Rights, like a gift basket of freedoms, guarantees fundamental rights such as speech, religion, and due process. These protect citizens from government overreach, reminding us that even Uncle Sam has his limits.</p>
+                  <h4>The Living Document in Modern Times</h4>
+                  <p>Fast forward to today, where every policy decision, law, and court ruling must align with constitutional principles. It’s like trying to fit square pegs into round holes, but with higher stakes and more C-SPAN coverage.</p>
+                  <p><strong>Executive Orders:</strong> When presidents issue these directives, it’s like watching a high-stakes game of “Mother, May I?” with Congress and the courts ready to call “Not it!”</p>
+                  <p><strong>Congressional Investigations:</strong> Picture a very formal, very expensive game of 20 Questions, often with less satisfying answers.</p>
+                  <p><strong>Supreme Court Decisions:</strong> Nine robed figures decide the fate of the nation, proving that fashion and jurisprudence can, in fact, coexist.</p>
+                  <h4>The Great Debate: Interpretation</h4>
+                  <p>Now, here’s where things get spicy. How should we interpret this centuries-old document? It’s the political equivalent of arguing over song lyrics, but with more gavels.</p>
+                  <p><strong>Originalism:</strong> These folks insist we stick to the original recipe. If the Founding Fathers didn’t have it, we shouldn’t either. Sorry, internet.</p>
+                  <p><strong>Living Constitution:</strong> This camp believes the Constitution should evolve, like a fine wine or a particularly resilient houseplant.</p>
+                  <p>This isn’t just academic squabbling. It’s the difference between “life, liberty, and the pursuit of happiness” and “life, liberty, and the pursuit of the latest iPhone.”</p>
+                  <h4>Why It Matters to You</h4>
+                  <p>The Constitution isn’t just for politicians or lawyers. It affects your everyday life, no matter who you are. It’s about things like:</p>
+                  <ul>
+                    <li>Your right to speak your mind</li>
+                    <li>Fair treatment in court</li>
+                    <li>Protecting your privacy</li>
+                  </ul>
+                  <p>As we go forward, we’ll look at how different leaders, including during the Trump years, have used the Constitution. We’ll see:</p>
+                  <ul>
+                    <li>Decisions that changed the country</li>
+                    <li>Court cases that made history</li>
+                    <li>Arguments about what’s right and wrong</li>
+                  </ul>
+                  <p>Understanding the Constitution helps you:</p>
+                  <ul>
+                    <li>Know your rights</li>
+                    <li>Understand what’s happening in the news</li>
+                    <li>Make good choices when you vote</li>
+                  </ul>
+                  <p>The Constitution is still important today. It’s not just an old piece of paper. It’s a set of rules that helps us decide how to live together as Americans.</p>
+                  <p>So, are you ready to learn more about how the Constitution affects our country today? It might seem complicated, but we’ll break it down step by step. Let’s go!</p>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <div class="aside">
+            <p><span class="chip chip--solid">FREE</span></p>
+            <h3>Making Sense Of The Nonsense: "Your Guide Through Uncertain Times"</h3>
+            <p class="fineprint">A short, free companion guide to the Constitution and democracy, by MoBetta5150.</p>
+            <details class="x-read">
+              <summary class="btn">Read the free guide</summary>
+              <div class="prose">
+                <h4>Introduction:</h4>
+                <p>In today’s fast-paced world, understanding American democracy is more crucial than ever. This guide will help you navigate the complexities of our political system, empowering you with the knowledge to make informed decisions and shape the future.</p>
+                <h4>Chapter 1: The Constitution - The Foundation of Democracy</h4>
+                <p>The Constitution is the backbone of our government, outlining the structure and defining our rights. It's a living document that adapts to changing times, ensuring our democracy remains vibrant and resilient.</p>
+                <h4>Chapter 2: The Trump Era and Its Impact</h4>
+                <p>Explore key policies and actions that have reshaped American governance:</p>
+                <ul>
+                  <li><strong>Executive Orders:</strong> Expanding presidential power</li>
+                  <li><strong>Border Policies:</strong> Changes in immigration and border control</li>
+                  <li><strong>Tax Reforms:</strong> Economic shifts and their implications</li>
+                </ul>
+                <h4>Chapter 3: Challenges Facing Democracy</h4>
+                <p>Understand the pressing issues affecting our nation:</p>
+                <ul>
+                  <li><strong>Misinformation:</strong> The role of media in shaping public opinion</li>
+                  <li><strong>Voter Suppression:</strong> Threats to election integrity</li>
+                  <li><strong>Polarization:</strong> The impact of division on our democracy</li>
+                </ul>
+                <h4>Chapter 4: Your Role in Protecting Democracy</h4>
+                <p>Empower yourself with these simple yet powerful actions:</p>
+                <ul>
+                  <li><strong>Stay Informed:</strong> Seek diverse sources and fact-check</li>
+                  <li><strong>Engage Locally:</strong> Participate in community initiatives and vote</li>
+                  <li><strong>Advocate for Change:</strong> Contact your representatives and support causes you believe in</li>
+                </ul>
+                <h4>Conclusion:</h4>
+                <p>Democracy thrives on informed citizens. By understanding our system and engaging actively, we can build a stronger, more united America.</p>
+                <h4>Resources for Further Learning:</h4>
+                <ul>
+                  <li><strong>FactCheck.org:</strong> Verify information and uncover the truth.</li>
+                  <li><strong>Pew Research Center:</strong> Explore in-depth analyses on politics and policy.</li>
+                  <li><strong>Brookings Institution:</strong> Stay updated on the latest research and insights.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="section" id="about" data-nav="About">
+          <div class="head">
+            <p class="head__eyebrow x-tag">The human in the loop</p>
+            <h2 class="x-neon">About Mo</h2>
+          </div>
+          <div class="pair">
+            <div class="prose">
+              <p>Mo is a poet who has dreamed since age 25 of hearing Mo's own words sung. Now AI gives Mo's poems a band.</p>
+              <p>Before the music, Mo spent 25+ years in social services, working with people and reading human patterns.</p>
+            </div>
+            <aside class="callout" aria-label="Spotlight: APRD">
+              <p class="callout__head">Spotlight</p>
+              <p class="callout__lead"><strong>APRD: AI Pattern Recognition Dialogue.</strong> You don't need to "jailbreak" an AI. Talk to it thoughtfully and persistently, the way you would with people, and it can go deeper while staying within its safeguards.</p>
+              <p class="x-quote"><em>“If someone like me—without technical expertise—can use AI as a partner to uncover hidden truths, then anyone can.”</em></p>
+              <p class="fineprint">Coined by Mo in the chapter “Human-AI Synergy: The APRD Method” of When Fires Don't Follow The Rules.</p>
+            </aside>
+          </div>
+          <div class="links">
+            <a class="btn" href="https://www.youtube.com/@mobetta5150music" target="_blank" rel="noopener">YouTube</a>
+            <a class="btn" href="https://www.tiktok.com/@mobetta5150music" target="_blank" rel="noopener">TikTok</a>
+            <a class="btn" href="https://www.facebook.com/61593617962239" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </section>
+      </main>
+      <footer class="foot">
+        <p>© 2026 MoBetta5150 Music. All rights reserved. Original human-authored lyrics. Music made with AI. Sharing links is welcome. No remixes, covers, re-uploads or other use without written permission.</p>
+        <nav aria-label="Back to sections" data-auto></nav>
+        <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"><span class="hark-mark"></span><span>built by hark</span></a>
+      </footer>
+    </div>
+    <script src="hark.js"></script>
+  </body>
+</html>
