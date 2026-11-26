@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The MoBetta5150 Music Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      .x-off { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+      .x-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+      .x-spot { display: flex; gap: 24px; align-items: flex-start; padding: 24px; border-radius: var(--r-l); background: var(--fill-tertiary); }
+      .x-spot__avatar { flex: none; width: 88px; height: 88px; border-radius: 50%; display: grid; place-items: center; background: var(--fill-primary); color: var(--text-primary-on); font: var(--type-title); }
+      .x-spot__body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+      .x-spot__body h3, .x-spot__body p { margin: 0; }
+      .x-spot__body h3 { font: var(--type-title); }
+      .x-spot__quote { font: var(--type-heading); text-wrap: balance; }
+      .x-spot__role { font: var(--type-label); color: var(--text-secondary); }
+      @media (max-width: 600px) { .x-spot { flex-direction: column; padding: 20px; } .x-spot__avatar { width: 64px; height: 64px; font: var(--type-heading); } }
+    </style>
+  </head>
+  <body>
+    <div class="page" id="top">
+      <header class="nav glass" data-auto></header>
+      <main class="main">
+        <section class="hero">
+          <img class="hero__img" src="hero.jpg" alt="A dark studio: a glowing old monitor shows handwritten lyrics turning into a soundwave, a black cat sits by a vintage mic" />
+          <div class="hero__copy">
+            <h1>The MoBetta5150 Music Showcase</h1>
+            <p class="hero__sub">Real stories. Human words. AI-assisted sound. Curated by Mo.</p>
+            <p class="hero__meta">Free · Hand-picked · AI use always disclosed</p>
+          </div>
+          <aside class="callout" aria-label="For artists">
+            <p class="callout__head">For artists</p>
+            <p class="callout__lead">
+              <strong>A free home for AI-assisted artists whose songs move people.</strong> Picked by hand by MoBetta5150 Music.
+            </p>
+            <div class="x-actions">
+              <a class="btn x-off" role="link" aria-disabled="true">Join the waiting list</a>
+              <span class="chip">Coming soon</span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="spotlight" data-nav="Spotlight">
+          <div class="head">
+            <p class="head__eyebrow">Spotlight of the week</p>
+            <h2>Meet Adrianna Nina, our first spotlight.</h2>
+          </div>
+          <article class="x-spot" aria-labelledby="spot-name">
+            <div class="x-spot__avatar" aria-hidden="true">AN</div>
+            <div class="x-spot__body">
+              <p class="head__eyebrow">Artist Spotlight #1</p>
+              <h3 id="spot-name">Adrianna Nina</h3>
+              <p class="x-spot__role">Professional Dancer | Dance Creator</p>
+              <p class="x-spot__quote">“Bringing Rhythm, Energy &amp; Creativity. Turning Music into Movement.”</p>
+              <p><strong>From Mo:</strong> Adrianna was one of the first to share my dance-off and lift up my music. Her energy is pure joy to watch. Go show her some love.</p>
+              <div class="links">
+                <a class="btn" href="https://www.tiktok.com/@adriannenian84" target="_blank" rel="noopener">Follow Adrianna on TikTok</a>
+                <a class="btn" href="https://www.tiktok.com/t/ZPNBT5MJh/" target="_blank" rel="noopener">Watch Mo's favorite performance</a>
+              </div>
+              <p class="fineprint">Featured with Adrianna's permission.</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="section" id="about" data-nav="About">
+          <div class="head">
+            <p class="head__eyebrow">What it is</p>
+            <h2>A free spotlight for music that helps people feel something.</h2>
+          </div>
+          <div class="prose">
+            <p>The Showcase is a free, hand-picked spotlight for independent artists who use AI tools to bring their own words and stories to life.</p>
+            <p>It's for music that helps people heal, feel seen, or just feel something. MoBetta5150 Music believes AI can open doors for creators facing real-life challenges, and says so openly.</p>
+          </div>
+        </section>
+
+        <section class="section" id="artists" data-nav="Artists">
+          <div class="head">
+            <p class="head__eyebrow">Featured artists</p>
+            <h2>Hand-picked, one yes at a time.</h2>
+          </div>
+          <div class="prose">
+            <p>More artists coming soon. Every feature is free and shared only with the artist's yes.</p>
+          </div>
+        </section>
+
+        <section class="section" id="how" data-nav="How it works">
+          <div class="head">
+            <p class="head__eyebrow">How it works</p>
+            <h2>Picked by ear, shared only with permission.</h2>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">Listen</p></div>
+              <div>
+                <h3>Mo listens and picks artists by hand</h3>
+                <p>There's no paying to get in, ever.</p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">Ask</p></div>
+              <div>
+                <h3>Mo asks the artist first</h3>
+                <p>Nothing is shared without their yes.</p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">Link</p></div>
+              <div>
+                <h3>Each feature links to the artist's own channel</h3>
+                <p>Plays and credit go to them.</p>
+              </div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">04</p><p class="step__eyebrow">Weekly</p></div>
+              <div>
+                <h3>One artist in the spotlight each week</h3>
+                <p>A short two-host audio intro may be added, fact-checked by the artist and clearly labeled as AI.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="rules" data-nav="Rules">
+          <div class="head">
+            <p class="head__eyebrow">Showcase rules</p>
+            <h2>Free, honest, and the artist stays in charge.</h2>
+          </div>
+          <ul class="checklist">
+            <li><span class="checklist__item">It's free to be featured. <small>No pay-to-play, paid playlist spots, or "guaranteed plays."</small></span></li>
+            <li><span class="checklist__item">Artists must own or have the rights to share their songs. <small>Their AI tool's terms must allow it too.</small></span></li>
+            <li><span class="checklist__item">AI use is disclosed on every feature.</span></li>
+            <li><span class="checklist__item">Lyrics and credit belong to the artist.</span></li>
+            <li><span class="checklist__item">Artists can ask to be removed at any time. <small>Mo removes them promptly.</small></span></li>
+            <li><span class="checklist__item">No hateful, harassing, or copied content. <small>No imitating real artists' voices.</small></span></li>
+          </ul>
+        </section>
+
+        <section class="section" id="support" data-nav="Support">
+          <div class="head">
+            <p class="head__eyebrow">Support the Showcase</p>
+            <h2>Like what you hear?</h2>
+          </div>
+          <aside class="callout" aria-label="Support the Showcase">
+            <p class="callout__head">Tip jar</p>
+            <p class="callout__lead"><strong>Tip the Showcase on Ko-fi.</strong></p>
+            <div class="links">
+              <a class="btn" href="https://ko-fi.com/mobetta5150" target="_blank" rel="noopener">Tip jar</a>
+            </div>
+          </aside>
+          <p>Back to the <a class="link" href="https://mobetta5150music.github.io/" target="_blank" rel="noopener">MoBetta5150 Music main site</a>.</p>
+        </section>
+      </main>
+      <footer class="foot">
+        <p>Curated by MoBetta5150 Music. AI-assisted music, human hearts.</p>
+        <nav aria-label="Back to sections" data-auto></nav>
+        <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"><span class="hark-mark"></span><span>built by hark</span></a>
+      </footer>
+    </div>
+    <script src="hark.js"></script>
+      <script data-goatcounter="https://mobetta5150.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
